@@ -1,59 +1,79 @@
-set number
-set mouse=a
-set numberwidth=1
-set clipboard=unnamed
-syntax enable
-set showcmd
-set ruler
-set encoding=utf-8
-set showmatch
-set sw=2
-set laststatus=2
-set noshowmode
-set tabstop=2
-set shiftwidth=2
-set nowrap
+source /home/stark/.config/nvim/plugins.vim
 
-inoremap jk <esc>
-inoremap kj <esc>
-
-inoremap JK <esc>
-inoremap KJ <esc>
-
-
-call plug#begin('~/.vim/plugged')
-
-" Temas
-Plug 'morhetz/gruvbox'
-
-" IDE
-Plug 'easymotion/vim-easymotion'
-Plug 'scrooloose/nerdtree'
-Plug 'mattn/emmet-vim'
-Plug 'junegunn/fzf', { 'do': { -> fzf#install() } }
-Plug 'junegunn/fzf.vim'
-Plug 'neoclide/coc.nvim' , { 'branch' : 'release' }
-Plug 'shawncplus/phpcomplete.vim'
-Plug 'dsawardekar/wordpress.vim'
-Plug 'preservim/nerdcommenter'
-Plug 'itchyny/lightline.vim'
-Plug 'jiangmiao/auto-pairs'
-
-call plug#end()
-
-colorscheme gruvbox
-let g:gruvbox_constrast_dark = "hard"
-
+" Map the leader key to
 let mapleader = " "
 
-nmap <Leader>s <Plug>(easymotion-s2)
-nmap <Leader>b :NERDTreeToggle<CR>
-nmap <Leader>f :GFiles<CR>
-nmap <Leader>w :w<CR>
-nmap <Leader>e :e<CR>
-nmap <Leader>q :q<CR>
-nmap <Leader>d :1,$d<CR>
-nmap <Leader>n :tabedit<CR>
-nmap <Leader>j :tabp<CR>
-nmap <leader>l :tabn<CR>
+"
+"" General {
+syntax enable
+set showmatch
+set noshowmode
+set relativenumber
+set mouse=a " }
 
+" Formating {
+set number 
+set smartindent
+set shiftwidth=2
+set tabstop=2
+set shiftwidth=2
+set numberwidth=1
+"
+" }
+"
+" Shortcuts {
+nmap <Leader>w :w<CR>
+nmap <Leader>q :q<CR>
+" }
+
+" UI Options {
+colorscheme gruvbox
+let g:gruvbox_contrast_dark = "hard"
+let g:lightline = {}
+let g:lightline.colorscheme = 'gruvbox'
+" }
+
+
+
+" nerdtree settings {
+let NERDTreeQuitOnOpen=1
+nmap <Leader>b :NERDTreeToggle<CR>
+" }
+"
+" telescope settings {
+nnoremap <leader>ff <cmd>Telescope find_files<cr>
+" }
+"
+
+"
+let g:vim_jsx_pretty_colorful_config = 1
+
+let g:lightline = {
+      \ 'colorscheme': 'gruvbox',
+      \ 'active': {
+      \   'left': [ [ 'mode', 'paste' ],
+      \             [ 'gitbranch', 'readonly', 'filename', 'modified' ] ]
+      \ },
+      \ 'component_function': {
+      \   'gitbranch': 'FugitiveHead'
+      \ },
+      \ }
+
+" Faster scrolling
+nnoremap <C-j> 10j
+nnoremap <C-k> 10k
+nmap <Leader>s <Plug>(easymotion-s2)
+
+" Tab 
+noremap <Tab> :tabNext<CR>
+noremap <S-Tab> :tabprevious<CR>
+
+nmap <silent> Cd <Plug>(coc-definition)
+
+" Eslint config
+let g:ale_fixers = {
+ \ 'javascript': ['eslint']
+ \ }
+ 
+let g:ale_sign_error = '❌'
+let g:ale_sign_warning = '⚠️'
